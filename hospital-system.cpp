@@ -1,12 +1,28 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
-// Global Variables & data structures
-int QUEUE[20+1]={0};
-int specialization[20+1][5+1];
-string patient_name[20+1][5+1];
-int IDr{1},IDc{1};   // patient ID.
 
-    void add_patient() {
+// Global Variables & data structures
+    int QUEUE[20+1]={0};
+    int specialization[20+1][5+1];
+    string patient_name[20+1][5+1];
+    int IDr{1},IDc{1};   // patient ID.
+
+// project functions
+    void add_patient();
+    void print();
+    void Get_next();
+    void  Hospital_system();
+
+    int main()
+        {
+       Hospital_system();
+        return 0;
+         }
+
+
+
+void add_patient()
+    {
         int user_specialization;
         string user_name;
         int user_status;
@@ -46,11 +62,9 @@ int IDr{1},IDc{1};   // patient ID.
                 {
                     for (int i{1}; i <= 5; ++i)
                         if (specialization[user_specialization][i] == -1)
-                        {
-                            specialization[user_specialization][i] = user_status;
+                            {specialization[user_specialization][i] = user_status;
                             IDc = i;
-                            break;
-                        }
+                            break;}
 
                 }
 
@@ -61,14 +75,15 @@ int IDr{1},IDc{1};   // patient ID.
 
             }
             else
-            {cout << "sorry NO room for more patients in this specialization.\n";}
+                {cout << "sorry NO room for more patients in this specialization.\n";}
 
 
         }
         else
-        {cout<<"Wrong Entery\n";}
+            {cout<<"Wrong Entery\n";}
     }
-        void print()
+
+    void print()
         {
 
             for(int i{1};i<=20;++i)//specialization
@@ -95,47 +110,41 @@ int IDr{1},IDc{1};   // patient ID.
                 }
                 cout<<"\n\n";
             }
-
-
-
-
         }
 
-
-
-
-    void Get_next() {
-        int spec;
-        cout << "Enter specialization :\n";
-        cin >> spec;
-        if (spec >= 1 && spec <= 20)
-        {
-            if (QUEUE[spec] != 0)
+        void Get_next()
             {
-                for (int j{1}; j <= 5; ++j)
-                    if (specialization[spec][j] != -1)
+                int spec;
+                cout << "Enter specialization :\n";
+                cin >> spec;
+                if (spec >= 1 && spec <= 20)
+                {
+                    if (QUEUE[spec] != 0)
                     {
-                        //informing
-                        cout << patient_name[spec][j]
-                             << " please go with Dr\n";
-                        //removing
-                        specialization[spec][j] = -1;
-                        patient_name[spec][j] = "";
-                        --QUEUE[spec];
-                        break;
+                        for (int j{1}; j <= 5; ++j)
+                            if (specialization[spec][j] != -1)
+                            {
+                                //informing
+                                cout << patient_name[spec][j]
+                                     << " please go with Dr\n";
+                                //removing
+                                specialization[spec][j] = -1;
+                                patient_name[spec][j] = "";
+                                --QUEUE[spec];
+                                break;
+
+                            }
 
                     }
+                    else
+                      {cout << "No patients at the moment ,Have rest Dr. \n";}
 
+                }
+                else
+                    {cout << "Wrong Entery\n";}
             }
-            else
-              {cout << "No patients at the moment ,Have rest Dr. \n";}
 
-        }
-        else
-            { cout << "Wrong Entery\n"; }
-    }
-
-    void  Hospital_system()
+void  Hospital_system()
     {
         // stting defualt values such that -1 maens empty.
         for(int i{1}; i<=20 ;++i)
@@ -186,8 +195,3 @@ int IDr{1},IDc{1};   // patient ID.
         }
 
     }
-int main()
-{
-   Hospital_system();
-    return 0;
-}
